@@ -1,0 +1,52 @@
+
+
+{% include 'nav.html' %}
+<div class="main">
+{% block content %}
+
+<div class="">
+		<div class="mr-sm-2 mb-2 col-sm-8" style="margin: 10px;">
+			<form action="{{ url_for('addFridgeDetails',psmname=psmname)}}" method="POST">
+				<div class="panel panel-primary">
+				  <div class="panel-heading bg-success" style="background-color:#CCFFFF;color:black;">Add Fridge Details</div>
+				  <div class="panel-body">
+				  	
+					  <div class="form-group">
+					  	<label class="text-primary" for="name">Enter Fridge Name:</label>
+					    <input type="name" class="form-control" name="f_name" placeholder="Enter Fridge Name:" pattern="[A-Za-z0-9]{1,}" title="Allow Characters Only" required>
+					  </div>
+					  <div class="form-group">
+					  	<label class="text-primary" for="name">Enter Color Of Fridge:</label>
+					    <input type="name" class="form-control" name="f_color" placeholder="Enter Color Of Fridge:" pattern="[A-Za-z0-9]{1,}" title="Allow Characters Only" required>
+					  </div>
+					  <div class="form-group">
+					  	<label class="text-primary" for="name">Enter Capacity Of Fridge:</label>
+					    <input type="name" class="form-control" name="f_capacity" placeholder="Enter Capacity Of Fridge:" pattern="[A-Za-z0-9]{1,}" title="Allow Characters Only" required>
+					  </div>
+					  <div class="form-group">
+					  	<label class="text-primary" for="year">Enter Number Of Doors:</label>
+					    <input type="text" class="form-control" name="f_doors" placeholder="Enter Number Of Doors:" pattern="[A-Za-z0-9 ]{1,}" title="Allow Characters Only" required>
+					  </div>
+					  <div class="form-group">
+					  	<label class="text-primary" for="color">Enter Doorlock Is Provided Or Not:</label>
+					    <input type="text" class="form-control" name="f_doorlock" placeholder="Enter Doorlock Is Provided Or Not:" pattern="[A-Za-z0-9 ]{1,}" title="Allow both characters and numbers only " required>
+					  </div>
+					  <div class="text-primary" class="form-group">
+					  	<label for="cc">Enter Price Of Fridge</label>
+					    <input type="text" class="form-control" name="f_price" placeholder="Enter Price Of Fridge" pattern="[A-Za-z0-9 ]{1,}" title="Allow Characters Only" required>
+					  </div>
+					  <div class="form-group">
+					  	<label class="text-primary" for="price">Enter Starrating(outof 5):</label>
+					    <input type="text" class="form-control" name="f_starrating" placeholder="Enter Starrating(outof 5):" pattern="[0-9]" title="Allow numbers Only" required>
+					  </div>
+					  <div class="form-group">
+					    <input type="text" class="form-control " name="compnameid" value=
+						"{{ psmname }}" readonly>
+					  </div>
+				  </div> 
+				  <div class="panel-footer text-center" style="background-color:#CCFFFF;"><input type="submit" class="btn btn-primary" value="Submit"></div>
+				</div>
+				</form>
+			</div>
+</div>
+{% endblock content %}

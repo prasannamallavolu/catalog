@@ -1,0 +1,49 @@
+{% include 'nav.html' %}
+<div class="main">
+{% block content %}
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	        <div class="alert alert-success alert-dismissable animated fadeIn">
+	            {% for message in messages %}
+	            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+	            <p class="h4" style="background-color:pink;"><strong>{{ message }}</strong></p>
+	            {% endfor %}
+	        </div>
+	{% endif %}	    
+{% endwith %}
+{% if 'username' in session %}
+<button type="button" class="btn btn-warning" style="margin: 5px 0px 5px 25px;background-color:#F5F5F5  
+;"><a href="{{url_for('addFridgeDetails',psmname=psm.p_name)}}" style="text-decoration: none;"><strong>Add New Fridge Details</strong></a></button>
+
+{% endif %}
+<div class="row" style="margin: 10px;">
+{% for pbet in psc %}
+
+	<div class="col-sm-4 text-center">
+		<div class="panel panel-primary" style="background-color:#FFF8DC;border:none">
+			<div class="panel-heading" style="background-color:#F4A460	;border-radius:10px">
+				<h4>{{ pbet.f_name }}</h4>
+			</div>
+			<div class="panel-body text-center" style="background-color:#D7CCC8	;color:white;border-radius:10px;font-size:15px;">
+				<table>
+					<tr><th>COLOR OF FRIDGE</th><td>:</td><td><h5>{{ pbet.f_color }}</h5></td></tr>
+					<tr><th>CAPACITY OF FRIDGE</th><td>:</td><td><h5>{{ pbet.f_capacity }}</h5></td></tr>
+					<tr><th>NUMBER OF DOORS</th><td>:</td><td><h5>{{ pbet.f_doors }}</h5></td></tr>
+					<tr><th>DOORLOCK(YES/NO)</th><td>:</td><td><h5>{{ pbet.f_doorlock }}</h5></td></tr>
+					<tr><th>COST OF FRIDGE</th><td>:</td><td><h5>{{ pbet.f_price }}</h5></td></tr>
+					<tr><th>STAR RATING(OUTOF 5)</th><td>:</td><td><h5>{{ pbet.f_starrating }}</h5></td></tr>
+				</table>
+			</div>
+			{% if 'username' in session %}
+			<div class="panel-footer" style="border-radius:10px;background-color:#F4A460">
+					<button type="button" class="btn btn-info"style="background-color:#004d1a"><a href="{{ url_for('editFridgeDetails',pscid=psm.id,psmmname=pbet.f_name) }}"style="text-decoration: none;color:white;">EDIT</a></button>
+					<button type="button" class="btn btn-danger" style="background-color:#990000"><a href="{{ url_for('deleteFridgeDetails',pscid=psm.id,psmmname=pbet.f_name)}}"style="text-decoration: none;color:white;">DELETE</a></button>
+			</div>
+			{% endif %}	
+			
+		</div>
+	</div>
+{% endfor %}
+</div>
+{% endblock content %}
+</div>

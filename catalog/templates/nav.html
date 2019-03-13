@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> REFRIGARATORS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+  <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+  <style>
+    body {
+      font-family:"cursive";
+	  background-repeat:no-repeat;
+	  background-size:99.8% 800px;
+	  background-color:#FFF8DC;
+    }
+
+    .sidenav {
+      height: 99.8%;
+      width: 300px;
+      position: fixed;
+      z-index: 1;
+      top: 49px;
+      left: 0;
+      background-color:#FFDAB9;
+      overflow-x: hidden;
+      padding-top: 19px;
+    }
+
+    .sidenav a {
+      padding: 6px 6px 6px 32px;
+      text-decoration: none;
+      font-size: 19px;
+      color:#FF1493	;
+      display: block;
+    }
+
+    .sidenav a:hover {
+      color: black;
+	  transition:0.3s;
+	  font-family:Constantia;
+	  font-size:22px;
+    }
+
+    .main {
+      margin-left: 300px; /* Same as the width of the sidenav */
+
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+  </style>
+  {% block head %}{% endblock head %}
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <script>
+            var messages = {{ messages | safe }};
+            for (var i=0; i<messages.length; i++) {
+              alert(messages[i]);
+            }
+          </script>
+        {% endif %}
+{% endwith %}
+<nav class="navbar navbar-inverse  navbar-fixed-top" style="background-color:#F8BBD0">
+  <div class="container-fluid">
+    <div class="navbar-header" style="background-color:#E0E0E0;border-radius:10px;font-family:Imprint MT Shadow">
+      <a class="navbar-brand" href="{{ url_for('home') }}">REFRIGARATORS</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      {% if 'username' in session %}
+            <li><button class="btn btn-warning mr-sm-2" style="margin-top: 5px;background-color:#F5F5F5;color:blue;"><a href="{{ url_for('addFridgeCompany')}}">ADD FRIDGE COMPANY</a></button>&nbsp&nbsp&nbsp&nbsp</li>
+            <li><button class="btn btn-warning mr-sm-2" style="margin-top: 5px;color:blue;background-color:#F5F5F5">{{ session.username }}</button></li>
+			
+            <li style="background-color:#E0E0E0;border-radius:10px;font-family:Imprint MT Shadow"><a href="{{ url_for('logout')}}"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+      {% else %}
+            <li style="background-color:#E0E0E0;border-radius:10px;font-family:Imprint MT Shadow"><a href="{{ url_for('showLogin')}}"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
+			
+      {% endif %}
+      
+    </ul>
+  </div>
+</nav>
+  
+<div class="sidenav">
+  <table>
+      {% for ptb in pfridge_cat %}
+      <tr>
+          <td><a href="{{ url_for('showFridges',pscid=ptb.id)}}">{{ptb.p_name}}</a></td>
+          {% if 'username' in session %}
+            <td><a href = "{{ url_for('editFridgeCompany',pscid=ptb.id)}}">
+            <span class="glyphicon glyphicon-pencil pull-right " data-toggle="tooltip" title="Edit Category" data-placement="bottom"> </span> </a></td>
+            <td><a href = "{{ url_for('deleteFridgeCompany',pscid=ptb.id)}}">
+            <span class="glyphicon glyphicon-trash pull-right" data-toggle="tooltip" title="Delete Category" data-placement="top"> </span> </a></td>  
+          {% endif %}   
+        </tr>              
+      {% endfor %}
+  </table>
+</div>
+<div class="container">
+
+      <div class="main" style="margin-top: 100px;">
+        
+            {% block content %}
+              
+            {% endblock content %}
+          
+        </div>
+  </div>
+  
+</body>
+</html>
